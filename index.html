@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Birthday Surprise ✨</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0} body{min-height:100vh;font-family:Poppins,sans-serif;color:#fff;background:#07130d;overflow:hidden}
+.bg{position:fixed;inset:0;background:linear-gradient(135deg,rgba(3,12,8,.9),rgba(18,45,27,.78)),url('assets/palak2.jpg') center/cover;filter:saturate(.9);z-index:-3}.blur{position:fixed;inset:-30px;background:radial-gradient(circle at 20% 20%,rgba(255,190,90,.17),transparent 30%),radial-gradient(circle at 80% 80%,rgba(255,90,150,.13),transparent 32%);backdrop-filter:blur(4px);z-index:-2}.grain{position:fixed;inset:0;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");z-index:-1}
+.wrap{min-height:100vh;display:grid;place-items:center;padding:25px}.card{width:min(680px,94vw);padding:45px 28px;text-align:center;border:1px solid rgba(255,255,255,.17);background:rgba(8,22,14,.55);backdrop-filter:blur(18px);border-radius:30px;box-shadow:0 30px 90px rgba(0,0,0,.45)}.eyebrow{letter-spacing:4px;text-transform:uppercase;font-size:11px;color:#e6d4a6;margin-bottom:18px}.title{font-family:'DM Serif Display',serif;font-size:clamp(48px,12vw,82px);line-height:.95;font-weight:400}.title span{color:#f5cf8c}.sub{margin:20px auto 30px;max-width:500px;color:#d9e1da;line-height:1.8;font-size:14px}.music{display:flex;align-items:center;gap:12px;justify-content:center;margin:20px auto 25px}.play{width:68px;height:68px;border:0;border-radius:50%;background:#f5cf8c;color:#152016;font-size:24px;cursor:pointer;box-shadow:0 0 0 0 rgba(245,207,140,.5);transition:.3s}.play:hover{transform:scale(1.06)}.play.playing{animation:pulse 1.5s infinite}.track{text-align:left}.track small{display:block;color:#aebcaf;font-size:10px;letter-spacing:2px;text-transform:uppercase}.track strong{font-size:14px;font-weight:500}.progress{width:100%;max-width:300px;height:3px;background:rgba(255,255,255,.16);border-radius:10px;margin-top:8px;overflow:hidden}.bar{height:100%;width:0;background:#f5cf8c;transition:width .2s}.continue{display:inline-flex;padding:13px 23px;border-radius:999px;text-decoration:none;color:#102015;background:#f5cf8c;font-weight:600;font-size:13px;opacity:.35;pointer-events:none;transform:translateY(8px);transition:.35s}.continue.ready{opacity:1;pointer-events:auto;transform:none}.hint{margin-top:18px;font-size:11px;color:#92a196}.tiny{margin-top:28px;color:#748177;font-size:10px}
+@keyframes pulse{50%{box-shadow:0 0 0 15px rgba(245,207,140,0)}}
+</style></head>
+<body>
+<div class="bg"></div><div class="blur"></div><div class="grain"></div>
+<main class="wrap"><section class="card">
+<div class="eyebrow">A tiny birthday surprise • 21 September</div>
+<h1 class="title">For <span>Palak</span><br><small style="font-size:.48em;color:#ddd">(Avni)</small></h1>
+<p class="sub">Before you open the little surprise I've made for you, there's one thing you have to do. Press play. 🎧<br><br>It's a small piece of something that reminded me of you.</p>
+<div class="music"><button class="play" id="playBtn" aria-label="Play music">▶</button><div class="track"><small>Private little soundtrack</small><strong id="status">Tap play to begin</strong><div class="progress"><div class="bar" id="bar"></div></div></div></div>
+<a class="continue" id="continueBtn" href="memories.html">Enter the surprise →</a>
+<div class="hint" id="hint">The next page unlocks only after the audio starts.</div>
+<div class="tiny">No pressure. Just a birthday moment. ✦</div>
+<audio id="audio" preload="auto" src="assets/voice.mp3"></audio>
+</section></main>
+<script>
+const audio=document.getElementById('audio'), playBtn=document.getElementById('playBtn'), status=document.getElementById('status'), bar=document.getElementById('bar'), cont=document.getElementById('continueBtn'), hint=document.getElementById('hint');
+playBtn.addEventListener('click', async()=>{try{if(audio.paused){await audio.play();playBtn.textContent='Ⅱ';playBtn.classList.add('playing');status.textContent='Playing…';localStorage.setItem('birthdayMusicPlayed','yes');cont.classList.add('ready');hint.textContent='Unlocked. Take your time. ✦';}else{audio.pause();playBtn.textContent='▶';playBtn.classList.remove('playing');status.textContent='Paused';}}catch(e){status.textContent='Tap again — browser blocked the first attempt.';}});
+audio.addEventListener('timeupdate',()=>{bar.style.width=((audio.currentTime/audio.duration)*100||0)+'%'});
+audio.addEventListener('ended',()=>{playBtn.textContent='↻';playBtn.classList.remove('playing');status.textContent='A little message, just for you.'});
+</script></body></html>
